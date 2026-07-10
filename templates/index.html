@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Ledger — Task Manager</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+<div class="page">
+
+  <header class="masthead">
+    <div class="masthead-left">
+      <span class="eyebrow">Vol. I &mdash; Daily Register</span>
+      <h1>The Ledger</h1>
+      <p class="tagline">Every task, entered and accounted for.</p>
+    </div>
+    <div class="masthead-right">
+      <div class="tally" id="tally">
+        <div class="tally-item">
+          <span class="tally-number" id="count-pending">0</span>
+          <span class="tally-label">Open</span>
+        </div>
+        <div class="tally-divider"></div>
+        <div class="tally-item">
+          <span class="tally-number" id="count-done">0</span>
+          <span class="tally-label">Closed</span>
+        </div>
+      </div>
+      <div class="masthead-user">
+        <span>Signed in as {{ username }}</span>
+        <a href="{{ url_for('logout') }}">Sign out</a>
+      </div>
+    </div>
+  </header>
+
+  <section class="entry-form-wrap">
+    <form id="task-form" class="entry-form">
+      <div class="field field-title">
+        <label for="title">Entry</label>
+        <input type="text" id="title" name="title" placeholder="What needs doing?" required>
+      </div>
+      <div class="field field-desc">
+        <label for="description">Notes</label>
+        <input type="text" id="description" name="description" placeholder="Optional detail">
+      </div>
+      <div class="field field-priority">
+        <label for="priority">Weight</label>
+        <select id="priority" name="priority">
+          <option value="low">Low</option>
+          <option value="medium" selected>Medium</option>
+          <option value="high">High</option>
+        </select>
+      </div>
+      <div class="field field-date">
+        <label for="due_date">Due</label>
+        <input type="date" id="due_date" name="due_date">
+      </div>
+      <button type="submit" class="btn-record">Record entry</button>
+    </form>
+  </section>
+
+  <section class="ledger-sheet">
+    <div class="sheet-head">
+      <span class="col col-check"></span>
+      <span class="col col-title">Task</span>
+      <span class="col col-priority">Weight</span>
+      <span class="col col-due">Due</span>
+      <span class="col col-actions">Actions</span>
+    </div>
+
+    <div id="task-list" class="sheet-body">
+      <!-- rows injected by script.js -->
+    </div>
+
+    <div id="empty-state" class="empty-state hidden">
+      <p>The page is blank.</p>
+      <span>Record your first entry above.</span>
+    </div>
+  </section>
+
+</div>
+
+<script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>
